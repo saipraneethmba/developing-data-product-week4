@@ -1,0 +1,73 @@
+---
+title: "shiny assignment"
+author: "sai praneeth"
+date: "11/5/2020"
+output: html_document
+---
+
+
+
+
+### Developing data week four assignment  
+
+- URL: *https://github.com/saipraneethmba/developing-data-product-week4*
+- Here we have the data to show the ppt of shiny.So what we do is that first we make shiny application and then we link r studio to it.This has been a good assignment and an interesting one too and also this was my first shiny related application.For that what i had done is that i first created a shiny account.
+Then wrote the code and ran it.A document opened where i had an option to publish. so i chose shinyio and pasted the secret key in the space mentioned taken from the tokens option in the shiny account and then created it.
+
+### All the information about the assignment is there in the mentioned website url down below
+URL: *https://www.coursera.org/learn/data-products/peer/tMYrn/course-project-shiny-application-and-reproducible-pitch*
+
+---
+
+## Data of mtcars which is an inbuilt data library in R
+
+### Motor Trend Car Road Tests
+
+> This data is taken from the nineteen seventy four Motor Trend US magazine 
+  which contains consumption of fuel and ten attributes of automobile design and   performance  for thirty two automobiles nineteen seventy three to nineteen      seventy four models.
+### And this information data can be taken from the below mentioned source
+> Henderson and Velleman nineteen hundred and eighty one, Building multiple regression models interactively. Biometrics, 37, 391-411.
+```{r}
+library(datasets)
+head(mtcars, 3)
+```
+---
+
+## The format of data of mtcars
+
+
+
+| Index | Field | Detail |
+------- | ----- | ------ |
+| [, 1] | mpg | Miles per gallon |
+| [, 2]  | cy | No. of cylinders |
+| [, 3]	| dis | Displacement (cu.in.) |
+| [, 4]	| hpp | Gross horsepower |
+| [, 5]	| rear | Rear axle ratio |
+| [, 6]	| wtg | Weight (lb/1000) |
+| [, 7]	| qsec | 1/4 mile time |
+| [, 8]	| vs | V/S |
+| [, 9]	| am | Transmission (0 = automatic, 1 = manual) |
+| [,10]	| gear | No. of forward gears |
+| [,11]	| carb | No. of carburetors |
+
+---
+
+## Analysis can be shown in the following code chunk
+
+```r
+  formulaTextPoint <- reactive({
+    paste("mpg ~", "as.integer(", input$variable, ")")  })
+  
+  fit <- reactive({
+    lm(as.formula(formulaTextPoint()), data=mpgData)  })
+  ...
+  output$fit <- renderPrint({
+    summary(fit()) })
+  
+  output$mpgPlot <- renderPlot({
+    with(mpgData, {
+      plot(as.formula(formulaTextPoint()))
+      abline(fit(), col=2)
+    })  })
+```
